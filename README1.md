@@ -57,7 +57,7 @@ Add new function `find_rocks()` return the rock pixels by using RGB color thresh
 And another! 
 see https://www.youtube.com/watch?v=oJA6QHDPdQw 11:20
 
-![alt text][image2]
+![alt text][mov1]
 ### Autonomous Navigation and Mapping
 
 #### 1. Fill in the `perception_step()` (at the bottom of the `perception.py` script) and `decision_step()` (in `decision.py`) functions in the autonomous mapping scripts and an explanation is provided in the writeup of how and why these functions were modified as they were.
