@@ -62,6 +62,15 @@ In the function `perspect_transform()`:
 2. Apply color threshold to idenify navigable terrain and obstacles. Call the function `color_thresh()` return the ground pixels.
 3. Get the map of navigable terrain pixels by the threshed map minus one times the mask, outside the camera field  will be zero.
    return the obstacle pixels of the map inside the camera view.
+4. Convert to rover coordinates
+5. Convert rover-centric pixel values to world coordiates : Call the function `pix_to_world'` conver pixel and coordinates to 
+   world coordinates.
+6. Update Rover Worldmap : Got world map from above step then update blue channel to 255 and also update red channel to 255 
+   where found obstacles.To avoid navigable terrain overlapping the with the obstacles, set the red channel to zero if the blue
+   channel is greater than zero.
+7. Call `find_rocks()` return the rock pixels and convert it to rover and world coordinates, update the worldmap to display 
+   the rock.
+8. Output the image and video.   
 
 The result video :  ./output/Mytest_mapping.mp4
 
