@@ -53,12 +53,15 @@ Add new function `find_rocks()` return the rock pixels by using RGB color thresh
 ,less than the blue. 
 
 #### 1. Populate the `process_image()` function with the appropriate analysis steps to map pixels identifying navigable terrain, obstacles and rock samples into a worldmap.  Run `process_image()` on your test data using the `moviepy` functions provided to create video output of your result. 
-And another! 
 
 In the function `perspect_transform()`: Using the cv function `warpPerspective` create a mask to show the field of view of
 camera. 
 
 In the function `perspect_transform()`: 
+1. Call function `perspect_transform()` return warp and mask.
+2. Apply color threshold to idenify navigable terrain and obstacles. Call the function `color_thresh()` return the ground pixels.
+3. Get the map of navigable terrain pixels by the threshed map minus one times the mask, outside the camera field  will be zero.
+   return the obstacle pixels of the map inside the camera view.
 
 The result video :  ./output/Mytest_mapping.mp4
 
