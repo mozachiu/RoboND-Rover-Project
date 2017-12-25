@@ -24,7 +24,7 @@
 
 [image1]: ./output/test_mapping.jpg
 [image11]: ./output/Mytest_mapping.jpg
-[image2]: ./output/Mytest_mapping.mp4
+[mov1]: ./output/Mytest_mapping.mp4
 [image3]: ./calibration_images/example_rock1.jpg 
 
 ## [Rubric](https://review.udacity.com/#!/rubrics/916/view) Points
