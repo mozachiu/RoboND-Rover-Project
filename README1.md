@@ -61,7 +61,7 @@ In the function `process_image()`:
 1. Call function `perspect_transform()` return warp and mask.
 2. Apply color threshold to idenify navigable terrain and obstacles. Call the function `color_thresh()` return the ground pixels.
 3. Get the map of navigable terrain pixels by the threshed map minus one times the mask, outside the camera field  will be zero.
-   return the obstacle pixels of the map inside the camera view.
+   Return the obstacle pixels of the map inside the camera view.
 4. Convert to rover coordinates
 5. Convert rover-centric pixel values to world coordiates : Call the function `pix_to_world'` conver pixel and coordinates to 
    world coordinates.
