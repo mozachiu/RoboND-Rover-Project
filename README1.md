@@ -57,7 +57,7 @@ Add new function `find_rocks()` return the rock pixels by using RGB color thresh
 In the function `perspect_transform()`: Using the cv function `warpPerspective` create a mask to show the field of view of
 camera. 
 
-In the function `perspect_transform()`: 
+In the function `process_image()`: 
 1. Call function `perspect_transform()` return warp and mask.
 2. Apply color threshold to idenify navigable terrain and obstacles. Call the function `color_thresh()` return the ground pixels.
 3. Get the map of navigable terrain pixels by the threshed map minus one times the mask, outside the camera field  will be zero.
