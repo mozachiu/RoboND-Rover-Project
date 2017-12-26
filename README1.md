@@ -24,7 +24,9 @@
 
 [image1]: ./output/test_mapping.jpg
 [image11]: ./output/Mytest_mapping.jpg
-[image3]: ./calibration_images/example_rock1.jpg 
+[image2]: ./output/Results1.png
+[image3]: ./output/Results2.png
+[image4]: ./output/Results3.png
 
 ## [Rubric](https://review.udacity.com/#!/rubrics/916/view) Points
 ### Here I will consider the rubric points individually and describe how I addressed each point in my implementation.  
@@ -34,17 +36,16 @@
 
 #### 1. Provide a Writeup / README that includes all the rubric points and how you addressed each one.  You can submit your writeup as markdown or pdf.  
 
-You're reading it!
-del!
-
 ### Notebook Analysis
 #### 1. Run the functions provided in the notebook on test images (first with the test data provided, next on data you have recorded). Add/modify functions to allow for color selection of obstacles and rock samples.
 Here is an example of how to include an image in your writeup.
 
 The test data provided.
+
 ![alt text][image1]
 
 The data have recorded.
+
 ![alt text][image11]
 
 Indentify the obstacle which appear dark in the perspective transform  images from camera by using RGB color threshold which
@@ -78,16 +79,49 @@ The result video :  ./output/Mytest_mapping.mp4
 
 #### 1. Fill in the `perception_step()` (at the bottom of the `perception.py` script) and `decision_step()` (in `decision.py`) functions in the autonomous mapping scripts and an explanation is provided in the writeup of how and why these functions were modified as they were.
 
+perception_step() in perception.py
+1. Call function `perspect_transform()` return warp and mask.
+2. Apply color threshold to idenify navigable terrain and obstacles. Call the function `color_thresh()` return the ground pixels.
+3. Get the map of navigable terrain pixels by the threshed map minus one times the mask, outside the camera field  will be zero.
+   return the obstacle pixels of the map inside the camera view.
+4. Convert to rover coordinates
+5. Convert rover-centric pixel values to world coordiates : Call the function `pix_to_world'` conver pixel and coordinates to 
+   world coordinates.
+6. Update Rover Worldmap : Got world map from above step then update blue channel to 255 and also update red channel to 255 
+   where found obstacles.To avoid navigable terrain overlapping the with the obstacles, set the red channel to zero if the blue
+   channel is greater than zero.
+7. Call `find_rocks()` return the rock pixels and convert it to rover and world coordinates, update the worldmap to display 
+   the rock.
+
+decision_step() in `decision.py`
+
+Steering Offset 
+        Adjusting the offset based on the mean of the angles with adding a value say -12 let the rover turn right a little bit
+        when accelerating. When the rover reach the maximum velocity, adjust the offset based on the standard deviation of the  
+        angles and multiplied by and random value between 0.6 and 0.8 to avoid the rover stuck in circle. Adding this offset will 
+        let the rover to  hug the left wall. 
+        
+Create "stuck" mode
+        When the rover on forward mode not moving  for at least 4 seconds then turn on "stuck" mode.Also on stop mode turn to
+        "stuck" mode when the rover can't forward again.
+       
+       
 
 #### 2. Launching in autonomous mode your rover can navigate and map autonomously.  Explain your results and how you might improve them in your writeup.  
 
+Adjust steering offset appropriate is important to improve the rover map and the fidelity against the ground truth. Only one
+pattern cause the rover stuck in somewhere. I plus some random value a little bit let it have the chance walk through all the
+map.
+
+The Results : 
+Run the simulator in 1024x768 resolution.Have 45% Mapped, 80% Fidelity in 2 mins ,
+95%  Mapped, 77% Fidelity in 10 mins and located 4 rocks.  
+
+![alt text][image2]
+![alt text][image3]
+![alt text][image4]
+
 **Note: running the simulator with different choices of resolution and graphics quality may produce different results, particularly on different machines!  Make a note of your simulator settings (resolution and graphics quality set on launch) and frames per second (FPS output to terminal by `drive_rover.py`) in your writeup when you submit the project so your reviewer can reproduce your results.**
 
-Here I'll talk about the approach I took, what techniques I used, what worked and why, where the pipeline might fail and how I might improve it if I were going to pursue this project further.  
-
-
-
-![alt text][image3]
-
-
-
+The rover have only one weapon to dectect the environment and make the decision where to go. Sometimes the RGB color from the
+environment let the rover have the wrong way to go. We have to find more weapon help the rover.
